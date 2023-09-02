@@ -18,67 +18,67 @@ A collection of easy-to-digest code examples for Lightning Web Components. Each 
 
 ## Table of contents
 
--   [Installing the app using a Scratch Org](#installing-the-app-using-a-scratch-org): This is the recommended installation option. Use this option if you are a developer who wants to experience the app and the code.
+- [Installing the app using a Scratch Org](#installing-the-app-using-a-scratch-org): This is the recommended installation option. Use this option if you are a developer who wants to experience the app and the code.
 
--   [Installing the app using an Unlocked Package](#installing-the-app-using-an-unlocked-package): This option allows anybody to experience the sample app without installing a local development environment.
+- [Installing the app using an Unlocked Package](#installing-the-app-using-an-unlocked-package): This option allows anybody to experience the sample app without installing a local development environment.
 
--   [Installing the app using a Developer Edition Org or a Trailhead Playground](#installing-the-app-using-a-developer-edition-org-or-a-trailhead-playground): Useful when tackling Trailhead Badges or if you want the app deployed to a more permanent environment than a Scratch org.
+- [Installing the app using a Developer Edition Org or a Trailhead Playground](#installing-the-app-using-a-developer-edition-org-or-a-trailhead-playground): Useful when tackling Trailhead Badges or if you want the app deployed to a more permanent environment than a Scratch org.
 
--   [Optional installation instructions](#optional-installation-instructions)
+- [Optional installation instructions](#optional-installation-instructions)
 
--   [Code tours](#code-tours)
+- [Code tours](#code-tours)
 
 ## Installing the app using a Scratch Org
 
 1. Set up your environment. Follow the steps in the [Quick Start: Lightning Web Components](https://trailhead.salesforce.com/content/learn/projects/quick-start-lightning-web-components/) Trailhead project. The steps include:
 
-    - Enable Dev Hub in your Trailhead Playground
-    - Install Salesforce CLI
-    - Install Visual Studio Code
-    - Install the Visual Studio Code Salesforce extensions, including the Lightning Web Components extension
+   - Enable Dev Hub in your Trailhead Playground
+   - Install Salesforce CLI
+   - Install Visual Studio Code
+   - Install the Visual Studio Code Salesforce extensions, including the Lightning Web Components extension
 
 1. If you haven't already done so, authorize your hub org and provide it with an alias (**myhuborg** in the command below):
 
-    ```
-    sf org login web -d -a myhuborg
-    ```
+   ```
+   sf org login web -d -a myhuborg
+   ```
 
 1. Clone the lwc-recipes repository:
 
-    ```
-    git clone https://github.com/trailheadapps/lwc-recipes
-    cd lwc-recipes
-    ```
+   ```
+   git clone https://github.com/trailheadapps/lwc-recipes
+   cd lwc-recipes
+   ```
 
 1. Create a scratch org and provide it with an alias (**lwc-recipes** in the command below):
 
-    ```
-    sf org create scratch -d -f config/project-scratch-def.json -a lwc-recipes
-    ```
+   ```
+   sf org create scratch -d -f config/project-scratch-def.json -a lwc-recipes
+   ```
 
 1. Push the app to your scratch org:
 
-    ```
-    sf project deploy start
-    ```
+   ```
+   sf project deploy start
+   ```
 
 1. Assign the **recipes** permission set to the default user:
 
-    ```
-    sf org assign permset -n recipes
-    ```
+   ```
+   sf org assign permset -n recipes
+   ```
 
 1. Import sample data:
 
-    ```
-    sf data tree import -p ./data/data-plan.json
-    ```
+   ```
+   sf data tree import -p ./data/data-plan.json
+   ```
 
 1. Open the scratch org:
 
-    ```
-    sf org open
-    ```
+   ```
+   sf org open
+   ```
 
 1. In **Setup**, under **Themes and Branding**, activate the **Recipes Lite** or **Recipes Blue** theme.
 
@@ -98,19 +98,19 @@ Make sure to start from a brand-new environment to avoid conflicts with previous
 
 1. Import Account and Contacts data:
 
-    - Click [here](https://raw.githubusercontent.com/trailheadapps/lwc-recipes/main/data/Accounts-Contacts.csv) to access the **Accounts-Contacts.csv** file. Right click on the browser window and save the file as **Accounts-Contacts.csv**.
-    - In **Setup**, type **Data Import** in the Quick Find box and click **Data Import Wizard**.
-    - Click **Launch Wizard**.
-    - Click **Accounts and Contacts**, and click **Add New Records**.
-    - Drag the **Accounts-Contacts.csv** file you just saved to the upload area.
-    - Click **Next**, **Next**, and **Start Import**.
+   - Click [here](https://raw.githubusercontent.com/trailheadapps/lwc-recipes/main/data/Accounts-Contacts.csv) to access the **Accounts-Contacts.csv** file. Right click on the browser window and save the file as **Accounts-Contacts.csv**.
+   - In **Setup**, type **Data Import** in the Quick Find box and click **Data Import Wizard**.
+   - Click **Launch Wizard**.
+   - Click **Accounts and Contacts**, and click **Add New Records**.
+   - Drag the **Accounts-Contacts.csv** file you just saved to the upload area.
+   - Click **Next**, **Next**, and **Start Import**.
 
 1. If you're attempting the [Quick Start](https://trailhead.salesforce.com/en/content/learn/projects/quick-start-lwc-recipes-app) on Trailhead, this step is required, but otherwise, skip:
 
-    - Go to **Setup > Users > Permission Sets**.
-    - Click **recipes**.
-    - Click **Manage Assignments**.
-    - Check your user and click **Add Assignments**.
+   - Go to **Setup > Users > Permission Sets**.
+   - Click **recipes**.
+   - Click **Manage Assignments**.
+   - Check your user and click **Add Assignments**.
 
 1. In **Setup**, under **Themes and Branding**, activate the **Recipes Lite** or **Recipes Blue** theme.
 
@@ -125,40 +125,40 @@ Make sure to start from a brand-new environment to avoid conflicts with previous
 
 1. Clone this repository:
 
-    ```
-    git clone https://github.com/trailheadapps/lwc-recipes
-    cd lwc-recipes
-    ```
+   ```
+   git clone https://github.com/trailheadapps/lwc-recipes
+   cd lwc-recipes
+   ```
 
 1. Authorize your Trailhead Playground or Developer org and provide it with an alias (**mydevorg** in the command below):
 
-    ```
-    sf org login web -s -a mydevorg
-    ```
+   ```
+   sf org login web -s -a mydevorg
+   ```
 
 1. Run this command in a terminal to deploy the app.
 
-    ```
-    sf project deploy start -d force-app
-    ```
+   ```
+   sf project deploy start -d force-app
+   ```
 
 1. Assign the `recipes` permission set to the default user.
 
-    ```
-    sf org assign permset -n recipes
-    ```
+   ```
+   sf org assign permset -n recipes
+   ```
 
 1. Import some sample data.
 
-    ```
-    sf data tree import -p ./data/data-plan.json
-    ```
+   ```
+   sf data tree import -p ./data/data-plan.json
+   ```
 
 1. If your org isn't already open, open it now:
 
-    ```
-    sf org open -o mydevorg
-    ```
+   ```
+   sf org open -o mydevorg
+   ```
 
 1. In **Setup**, under **Themes and Branding**, activate the **Recipes Lite** or **Recipes Blue** theme.
 
