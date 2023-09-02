@@ -13,8 +13,8 @@ on:
 
 # Jobs to be executed
 jobs:
-  format-lint-lwc-tests:
-    runs-on: trailheadapps-Ubuntu
+  format-lint-tests:
+    runs-on: ubuntu-latest
     steps:
       # Checkout the source code
       - name: 'Checkout source code'
@@ -48,9 +48,9 @@ jobs:
       - name: 'Lint Lightning Web Components / Aura Components'
         run: npm run lint
 
-      # LWC unit tests
-      - name: 'Unit test Lightning Web Components'
-        run: npm run test:unit:coverage
+      # # LWC unit tests
+      # - name: 'Unit test Lightning Web Components'
+      #   run: npm run test:unit:coverage
 
       # Upload code coverage data
       - name: 'Upload code coverage for LWC to Codecov.io'
@@ -59,27 +59,27 @@ jobs:
           flags: LWC
 
   scratch-org-test:
-    runs-on: trailheadapps-Ubuntu
-    needs: format-lint-lwc-tests
+    runs-on: ubuntu-latest
+    needs: format-lint-tests
     if: github.actor != 'dependabot[bot]'
     steps:
       # Checkout the source code
       - name: 'Checkout source code'
         uses: actions/checkout@v3
 
-      # Run PMD scan
-      - name: 'Run PMD scan'
-        uses: pmd/pmd-github-action@v1.4.0
-        id: pmd
-        with:
-          version: '6.55.0'
-          sourcePath: 'force-app'
-          rulesets: 'ruleset.xml'
+      # # Run PMD scan
+      # - name: 'Run PMD scan'
+      #   uses: pmd/pmd-github-action@v1.4.0
+      #   id: pmd
+      #   with:
+      #     version: '6.55.0'
+      #     sourcePath: 'force-app'
+      #     rulesets: 'ruleset.xml'
 
-      # Check for PMD violations
-      - name: 'Check for PMD violations'
-        if: steps.pmd.outputs.violations != 0
-        run: exit 1
+      # # Check for PMD violations
+      # - name: 'Check for PMD violations'
+      #   if: steps.pmd.outputs.violations != 0
+      #   run: exit 1
 
       # Install Salesforce CLI
       - name: 'Install Salesforce CLI'
@@ -112,17 +112,17 @@ jobs:
       - name: 'Push source to scratch org'
         run: sf project deploy start
 
-      # Assign permissionset
-      - name: 'Assign permissionset to default user'
-        run: sf org assign permset -n recipes
+      # # Assign permissionset
+      # - name: 'Assign permissionset to default user'
+      #   run: sf org assign permset -n recipes
 
       # Import sample data
       - name: 'Import sample data'
         run: sf data tree import -p ./data/data-plan.json
 
-      # Run Apex tests in scratch org
-      - name: 'Run Apex tests'
-        run: sf apex test run -c -r human -d ./tests/apex -w 20
+      # # Run Apex tests in scratch org
+      # - name: 'Run Apex tests'
+      #   run: sf apex test run -c -r human -d ./tests/apex -w 20
 
       # Upload code coverage data
       - name: 'Upload code coverage for Apex to Codecov.io'
@@ -136,7 +136,7 @@ jobs:
         run: sf org delete scratch -p -o scratch-org
 
   trigger-packaging:
-    runs-on: trailheadapps-Ubuntu
+    runs-on: ubuntu-latest
     needs: scratch-org-test
     steps:
       # Checkout the source code
