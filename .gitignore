@@ -44,3 +44,4 @@ $RECYCLE.BIN/
 # Local environment variables
 .env
 DEVHUB*.txt
+changed-sources/
