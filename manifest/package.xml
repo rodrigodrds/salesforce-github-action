@@ -32,51 +32,22 @@
 		<members>Account.SLASerialNumber__c</members>
 		<members>Account.SLA__c</members>
 		<members>Account.UpsellOpportunity__c</members>
-		<members>Case.Case_Category__c</members>
 		<members>Case.EngineeringReqNumber__c</members>
 		<members>Case.PotentialLiability__c</members>
 		<members>Case.Product__c</members>
 		<members>Case.SLAViolation__c</members>
 		<members>Contact.Languages__c</members>
 		<members>Contact.Level__c</members>
-		<members>Goal.OrigGoalId__c</members>
 		<members>Lead.CurrentGenerators__c</members>
 		<members>Lead.NumberofLocations__c</members>
 		<members>Lead.Primary__c</members>
 		<members>Lead.ProductInterest__c</members>
 		<members>Lead.SICCode__c</members>
-		<members>Metric.OrigMetricId__c</members>
 		<members>Opportunity.CurrentGenerators__c</members>
 		<members>Opportunity.DeliveryInstallationStatus__c</members>
 		<members>Opportunity.MainCompetitors__c</members>
 		<members>Opportunity.OrderNumber__c</members>
 		<members>Opportunity.TrackingNumber__c</members>
-		<members>Order_Item__c.Order__c</members>
-		<members>Order_Item__c.Price__c</members>
-		<members>Order_Item__c.Product__c</members>
-		<members>Order_Item__c.Qty_L__c</members>
-		<members>Order_Item__c.Qty_M__c</members>
-		<members>Order_Item__c.Qty_S__c</members>
-		<members>Order__c.Account__c</members>
-		<members>Product_Family__c.Category__c</members>
-		<members>Product_Family__c.Description__c</members>
-		<members>Product__c.Battery__c</members>
-		<members>Product__c.Category__c</members>
-		<members>Product__c.Charger__c</members>
-		<members>Product__c.Description__c</members>
-		<members>Product__c.Fork__c</members>
-		<members>Product__c.Frame_Color__c</members>
-		<members>Product__c.Front_Brakes__c</members>
-		<members>Product__c.Handlebar_Color__c</members>
-		<members>Product__c.Level__c</members>
-		<members>Product__c.MSRP__c</members>
-		<members>Product__c.Material__c</members>
-		<members>Product__c.Motor__c</members>
-		<members>Product__c.Picture_URL__c</members>
-		<members>Product__c.Product_Family__c</members>
-		<members>Product__c.Rear_Brakes__c</members>
-		<members>Product__c.Seat_Color__c</members>
-		<members>Product__c.Waterbottle_Color__c</members>
 		<name>CustomField</name>
 	</types>
 	<types>
@@ -109,11 +80,7 @@
 		<members>Opportunity</members>
 		<members>OpportunityContactRole</members>
 		<members>OpportunityLineItem</members>
-		<members>Order_Item__c</members>
-		<members>Order__c</members>
 		<members>Product2</members>
-		<members>Product_Family__c</members>
-		<members>Product__c</members>
 		<name>CustomObject</name>
 	</types>
 	<types>
@@ -141,8 +108,7 @@
 		<name>QuickAction</name>
 	</types>
 	<types>
-		<members>Metric.Completion</members>
-		<members>Metric.Progress</members>
+		<members>*</members>
 		<name>RecordType</name>
 	</types>
 	<types>
