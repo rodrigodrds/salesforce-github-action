@@ -50,9 +50,9 @@ jobs:
         run: sf org login sfdx-url -f ./SFDX_PRODUCTION_URL.txt -a production -s
 
       - name: 'Deploy the entire branch to Production org'
-        run: sf project deploy start -p force-app -l RunLocalTests --json
+        run: sf project deploy start -d force-app -l RunLocalTests --target-org=production --json
         # sfdx force:source:deploy -p force-app --testlevel RunLocalTests --json
 
       - name: 'Deploy destructive changes (if any) to Production org'
-        run: sf project deploy start -d "changed-sources/destructiveChanges" --checkonly --ignore-warnings
+        run: sf project deploy start --metadata-dir  "changed-sources/destructiveChanges" --target-org=production --checkonly --ignore-warnings
         # sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings

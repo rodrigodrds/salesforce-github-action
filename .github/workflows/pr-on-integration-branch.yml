@@ -20,9 +20,9 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
       # Install nodejs
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+      # - uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '14'
 
       # Checkout the source code
       - name: 'Checkout source code'
@@ -80,15 +80,10 @@ jobs:
         run: sf plugins install  @salesforce/sfdx-scanner
 
       # Store secret for dev hub
-      - name: 'Populate auth file with DEVHUB_SFDX_URL secret'
+      - name: 'Populate auth file with SFDX_INTEGRATION_URL secret'
         shell: bash
         run: |
-          echo ${{ secrets.SFDX_INTEGRATION_URL }} > ./SFDX_INTEGRATION_URL.txt
-          secretFileSize=$(wc -c "./SFDX_INTEGRATION_URL.txt" | awk '{print $1}')
-          if [ $secretFileSize == 1 ]; then
-              echo "Missing SFDX_INTEGRATION_URL secret. Is this workflow running on a fork?";
-              exit 1;
-          fi
+          echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
 
       # Authenticate dev hub
       - name: 'Authenticate Dev Hub'
@@ -106,7 +101,7 @@ jobs:
       - name: 'Scan code'
         run: |
           cd changed-sources
-          sfdx scanner:run --format sarif --target './**/*.cls' --category "Design,Best Practices,Performance" --outfile 'apexScanResults.sarif'  
+          sfdx scanner:run --format sarif --target './**/*.cls' --category "Design,Best Practices,Performance" --outfile 'apexScanResults.sarif'
           cd ..
 
       - name: Upload SARIF file
@@ -121,17 +116,17 @@ jobs:
         if: ${{ env.APEX_TESTS != 'all' }}
         run: |
           echo ${{env.APEX_TESTS}}
-          sf project deploy start -p "changed-sources/force-app" -l RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
+          sf project deploy start -d "changed-sources/force-app" --target-org=integration -l RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
         # sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
 
       # We do a check-only deploy and we run all tests
       - name: 'Check-only deploy delta changes - run all tests'
         if: ${{ env.APEX_TESTS == 'all' }}
         run: |
-          sf project deploy start -p "changed-sources/force-app" -l RunLocalTests --json
+          sf project deploy start -d "changed-sources/force-app" --target-org=integration -l RunLocalTests --json
         # sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunLocalTests  --json
 
       - name: 'Deploy destructive changes (if any)'
         run: |
-          sf project deploy start -d "changed-sources/destructiveChanges" --checkonly --ignore-warnings
+          sf project deploy start --metadata-dir "changed-sources/destructiveChanges" --target-org=integration --dry-run --ignore-warnings
         # sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings
