@@ -43,5 +43,5 @@ $RECYCLE.BIN/
 
 # Local environment variables
 .env
-DEVHUB*.txt
+*SFDX*.txt
 changed-sources/
