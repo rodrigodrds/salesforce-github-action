@@ -52,22 +52,22 @@ jobs:
         # sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
 
       - name: 'Deploy the entire branch to Integration org'
-        run: sf project deploy start -d force-app -l RunLocalTests --json
+        run: sf project deploy start -p force-app -l RunLocalTests --json
         # sfdx force:source:deploy -p force-app --testlevel RunLocalTests --json
 
       - name: 'Deploy destructive changes (if any) to Integration org'
-        run: sf project deploy start --metadata-dir "changed-sources/destructiveChanges" --checkonly --ignore-warnings
+        run: sf project deploy start -d "changed-sources/destructiveChanges" --checkonly --ignore-warnings
         # sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings
 
-      # # Authenticate to org
-      # - name: 'Authenticate to Staging Org to Staging org'
-      #   run: sf org login sfdx-url -f ./SFDX_STAGING_URL.txt -a staging -d -s
-      #   # sfdx auth:sfdxurl:store -f ./SFDX_STAGING_URL.txt -s -a staging
+      # Authenticate to org
+      - name: 'Authenticate to Staging Org to Staging org'
+        run: sf org login sfdx-url -f ./SFDX_STAGING_URL.txt -a staging -d -s
+        # sfdx auth:sfdxurl:store -f ./SFDX_STAGING_URL.txt -s -a staging
 
-      # - name: 'Deploy the entire branch'
-      #   run: sf project deploy start -d force-app -l RunLocalTests --json
-      #   # sfdx force:source:deploy -p force-app --testlevel RunLocalTests --json
+      - name: 'Deploy the entire branch'
+        run: sf project deploy start -d force-app -l RunLocalTests --json
+        # sfdx force:source:deploy -p force-app --testlevel RunLocalTests --json
 
-      # - name: 'Deploy destructive changes (if any) to Staging org'
-      #   run: sf project deploy start --metadata-dir "changed-sources/destructiveChanges" --dry-run --ignore-warnings
-      #   # sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings
+      - name: 'Deploy destructive changes (if any) to Staging org'
+        run: sf project deploy start --metadata-dir "changed-sources/destructiveChanges" --dry-run --ignore-warnings
+        # sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings
