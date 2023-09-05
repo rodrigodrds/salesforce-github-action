@@ -4,7 +4,7 @@ name: Deploy master branch to production org
 # Definition when the workflow should run
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - 'force-app/**'
 
@@ -51,8 +51,9 @@ jobs:
 
       - name: 'Deploy the entire branch to Production org'
         run: sf project deploy start -d force-app -l NoTestRun --target-org=production --json
+        # depois mudar para -l RunLocalTests
         # sfdx force:source:deploy -p force-app --testlevel RunLocalTests --json
 
       - name: 'Deploy destructive changes (if any) to Production org'
-        run: sf project deploy start --metadata-dir  "changed-sources/destructiveChanges" --target-org=production --dry-run --ignore-warnings
+        run: sf project deploy start --metadata-dir  "changed-sources/destructiveChanges" --target-org=production --ignore-warnings
         # sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings

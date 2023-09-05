@@ -53,6 +53,7 @@ jobs:
 
       - name: 'Deploy the entire branch to Integration org'
         run: sf project deploy start -d force-app -l NoTestRun --target-org=integration --json
+        # depois mudar para -l RunLocalTests
         # sfdx force:source:deploy -p force-app --testlevel RunLocalTests --json
 
       - name: 'Deploy destructive changes (if any) to Integration org'
