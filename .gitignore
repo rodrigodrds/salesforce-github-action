@@ -43,5 +43,5 @@ $RECYCLE.BIN/
 
 # Local environment variables
 .env
-*SFDX*.txt
+*SFDX*.*
 changed-sources/
