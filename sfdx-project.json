@@ -1,8 +1,6 @@
 {
   "packageDirectories": [
-    { "path": "force-app", "default": true}, 
-    { "path" : "unpackaged" }, 
-    { "path" : "utils" }
+    { "path": "force-app", "default": true}
   ],
   "name": "Salesforce Github Actions",
   "namespace": "",
