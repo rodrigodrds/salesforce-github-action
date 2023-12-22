@@ -7,7 +7,7 @@ on:
     # This workflow will run when a pull request is opened, or when a commit is pushed
     # to a branch that has an existing pull request
     types: [opened, synchronize]
-    branches: [development]
+    branches: [integration, qa]
     # We only care about changes to the force-app directory. This prevents the job from running
     # when changing non-salesforce files (like this yml file).
     paths:
@@ -83,11 +83,11 @@ jobs:
       - name: 'Populate auth file with SFDX_INTEGRATION_URL secret'
         shell: bash
         run: |
-          echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
+          echo ${{ secrets.SFDX_QA_URL }} > ./SFDX_QA_URL.txt
 
       # Authenticate dev hub
       - name: 'Authenticate Dev Hub'
-        run: sf org login sfdx-url -f ./SFDX_INTEGRATION_URL.txt -a integration -d
+        run: sf org login sfdx-url -f ./SFDX_QA_URL.txt -a integration -d
 
       # We use SFDX Git Delta to create a directory with only the metadata that has changed, this allows us
       # to deploy only those changes, as opposed to deploying the entire branch. This helps reducing deployment times
@@ -115,7 +115,7 @@ jobs:
       - name: 'Check-only deploy delta changes - run specified tests'
         if: ${{ env.APEX_TESTS != 'all' }}
         run: |
-          echo ${{env.APEX_TESTS}}
+          echo ${{ env.APEX_TESTS }}
           sf project deploy start -d "changed-sources/force-app" --target-org=integration -l RunSpecifiedTests --dry-run --runtests ${{env.APEX_TESTS}} --json
         # sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
 

@@ -1,3 +1,0 @@
-<aura:component access="global" implements="flexipage:availableForAllPageTypes">
-	<lightning:container src="https://pagar.me" />
-</aura:component>

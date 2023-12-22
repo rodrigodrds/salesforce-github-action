@@ -1,16 +1,16 @@
 # Unique name for this workflow
-name: Deploy main branch to production org
+name: Deploy integration branch to integration and staging/uat orgs
 
 # Definition when the workflow should run
 on:
   push:
-    branches: [main]
+    branches: [integration, qa]
     paths:
       - 'force-app/**'
 
 # Jobs to be executed
 jobs:
-  deploy-branch-to-production-org:
+  deploy-branch-to-int-and-staging-orgs:
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
@@ -34,11 +34,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Store secret for production org
+      # Store secret for both otgs
       - name: 'Populate auth file with SFDX_URL secret of the integration and staging orgs'
         shell: bash
         run: |
-          echo ${{ secrets.SFDX_PRD_URL }} > ./SFDX_PRD_URL.txt
+          echo ${{ secrets.SFDX_QA_URL }} > ./SFDX_QA_URL.txt
 
       - name: 'Create delta packages for new, modified or deleted metadata'
         run: |
@@ -46,13 +46,14 @@ jobs:
           sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta --source force-app/
 
       # Authenticate to org
-      - name: 'Authenticate to Production Org'
-        run: sf org login sfdx-url -f ./SFDX_PRD_URL.txt -a production -s
+      - name: 'Authenticate to QA org'
+        run: sf org login sfdx-url -f ./SFDX_QA_URL.txt -a integration -d -s
+        # sfdx auth:sfdxurl:store -f ./SFDX_QA_URL.txt -s -a integration
 
-      - name: 'Deploy the entire branch to Production org'
-        run: sf project deploy start -d force-app -l NoTestRun --target-org=production --json
+      - name: 'Deploy the entire branch to QA org'
+        run: sf project deploy start -d force-app -l NoTestRun --target-org=integration --json
         # sfdx force:source:deploy -p force-app --testlevel RunLocalTests --json
 
-      - name: 'Deploy destructive changes (if any) to Production org'
-        run: sf project deploy start --metadata-dir  "changed-sources/destructiveChanges" --target-org=production --ignore-warnings
+      - name: 'Deploy destructive changes (if any) to QA org'
+        run: sf project deploy start --metadata-dir "changed-sources/destructiveChanges" --target-org=integration --dry-run --ignore-warnings
         # sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings
