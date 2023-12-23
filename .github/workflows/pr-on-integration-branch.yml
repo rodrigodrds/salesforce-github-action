@@ -114,17 +114,14 @@ jobs:
         if: ${{ env.APEX_TESTS != 'all' }}
         run: |
           echo ${{ env.APEX_TESTS }}
-          sf project deploy start -d "changed-sources/force-app" --target-org=integration -l RunSpecifiedTests --dry-run --runtests ${{env.APEX_TESTS}} --json
-        # sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
+          sf project deploy start --source-dir="changed-sources/force-app" --target-org=integration --test-level=RunSpecifiedTests --tests=${{ env.APEX_TESTS }} --dry-run --json
 
       # We do a check-only deploy and we run all tests
       - name: 'Check-only deploy delta changes - run all tests'
         if: ${{ env.APEX_TESTS == 'all' }}
         run: |
-          sf project deploy start -d "changed-sources/force-app" --target-org=integration --dry-run -l RunLocalTests --json
-        # sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunLocalTests  --json
+          sf project deploy start --source-dir="changed-sources/force-app" --target-org=integration --test-level=RunLocalTests --dry-run --json
 
       - name: 'Deploy destructive changes (if any)'
         run: |
-          sf project deploy start --metadata-dir "changed-sources/destructiveChanges" --target-org=integration --dry-run --ignore-warnings
-        # sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings
+          sf project deploy start --metadata-dir="changed-sources/destructiveChanges" --target-org=integration --dry-run --ignore-warnings
