@@ -84,5 +84,9 @@
 		<members>DirectorDirectSales</members>
 		<name>Role</name>
 	</types>
+	<types>
+		<members>APIBrasilJSONExample</members>
+		<name>StaticResource</name>
+	</types>
 	<version>58.0</version>
 </Package>
