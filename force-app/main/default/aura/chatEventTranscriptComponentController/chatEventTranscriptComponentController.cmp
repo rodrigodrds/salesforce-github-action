@@ -1,0 +1,27 @@
+<aura:component
+	implements="flexipage:availableForAllPageTypes,force:hasRecordId"
+	access="global"
+	description="Conversation toolkit api sample"
+>
+	<lightning:conversationToolkitAPI aura:id="conversationKit" />
+	<lightning:omniToolkitAPI aura:id="omniToolkit" />
+	<lightning:empApi aura:id="empApi" />
+	<aura:attribute name="recordId" type="Id" />
+	<aura:attribute name="eventType" type="String" />
+	<aura:handler
+		event="lightning:conversationNewMessage"
+		action="{!c.onNewMessage}"
+	/>
+	<aura:handler
+		event="lightning:conversationAgentSend"
+		action="{!c.onAgentSend}"
+	/>
+	<aura:handler
+		event="lightning:conversationChatEnded"
+		action="{!c.onChatEnded}"
+	/>
+	<lightning:workspaceAPI aura:id="workspace" />
+	<aura:attribute name="messageData" type="Object[]" />
+	<aura:attribute name="updateRecord" type="Boolean" default="false" />
+	<aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+</aura:component>
