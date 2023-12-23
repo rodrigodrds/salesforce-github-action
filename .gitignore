@@ -44,4 +44,4 @@ $RECYCLE.BIN/
 # Local environment variables
 .env
 *SFDX*.*
-changed-sources/
+changed-sources/force-app/*
